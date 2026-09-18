@@ -358,21 +358,6 @@
             font-weight: 600;
         }
 
-        /* ── Breadcrumb ── */
-        .page-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .page-breadcrumb .breadcrumb-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1e2139;
-            margin: 0;
-        }
-
         /* ── Mobile ── */
         .sidebar-toggle {
             display: none;
@@ -448,20 +433,23 @@
         <li class="nav-item">
             <a href="#crmMenu" class="nav-link"
                data-bs-toggle="collapse"
-               aria-expanded="{{ request()->routeIs('customers.*') || request()->routeIs('leads.*') ? 'true' : 'false' }}">
+               aria-expanded="{{ request()->routeIs('customers.*') || request()->routeIs('leads.*') || request()->routeIs('activities.*') ? 'true' : 'false' }}">
                 <i class="bi bi-people"></i>
                 CRM
                 <i class="bi bi-chevron-right arrow"></i>
             </a>
-            <div class="collapse {{ request()->routeIs('customers.*') || request()->routeIs('leads.*') ? 'show' : '' }}"
+            <div class="collapse {{ request()->routeIs('customers.*') || request()->routeIs('leads.*') || request()->routeIs('activities.*') ? 'show' : '' }}"
                  id="crmMenu">
-                <a href="{{ route('customers.index') }}" class="collapse-item {{ request()->routeIs('customers.*') ? 'active' : '' }}">
+                <a href="{{ route('customers.index') }}"
+                   class="collapse-item {{ request()->routeIs('customers.*') ? 'active' : '' }}">
                     <i class="bi bi-person-lines-fill me-1"></i> Customers
                 </a>
-                <a href="{{ route('leads.index') }}" class="collapse-item {{ request()->routeIs('leads.*') ? 'active' : '' }}">
+                <a href="{{ route('leads.index') }}"
+                   class="collapse-item {{ request()->routeIs('leads.*') ? 'active' : '' }}">
                     <i class="bi bi-funnel me-1"></i> Leads
                 </a>
-                <a href="#" class="collapse-item {{ request()->routeIs('activities.*') ? 'active' : '' }}">
+                <a href="{{ route('activities.index') }}"
+                  class="collapse-item {{ request()->routeIs('activities.*') ? 'active' : '' }}">
                     <i class="bi bi-activity me-1"></i> Activities
                 </a>
             </div>
@@ -473,20 +461,23 @@
         <li class="nav-item">
             <a href="#inventoryMenu" class="nav-link"
                data-bs-toggle="collapse"
-               aria-expanded="{{ request()->routeIs('products.*') || request()->routeIs('categories.*') ? 'true' : 'false' }}">
+               aria-expanded="{{ request()->routeIs('products.*') || request()->routeIs('categories.*') || request()->routeIs('stock-transactions.*') ? 'true' : 'false' }}">
                 <i class="bi bi-box-seam"></i>
                 Products
                 <i class="bi bi-chevron-right arrow"></i>
             </a>
-            <div class="collapse {{ request()->routeIs('products.*') || request()->routeIs('categories.*') ? 'show' : '' }}"
+            <div class="collapse {{ request()->routeIs('products.*') || request()->routeIs('categories.*') || request()->routeIs('stock-transactions.*') ? 'show' : '' }}"
                  id="inventoryMenu">
-                <a href="{{ route('products.index') }}" class="collapse-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
+                <a href="{{ route('products.index') }}"
+                   class="collapse-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
                     <i class="bi bi-box me-1"></i> Products
                 </a>
-                <a href="{{ route('categories.index') }}" class="collapse-item {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+                <a href="{{ route('categories.index') }}"
+                   class="collapse-item {{ request()->routeIs('categories.*') ? 'active' : '' }}">
                     <i class="bi bi-tags me-1"></i> Categories
                 </a>
-                <a href="{{ route('stock-transactions.index') }}" class="collapse-item {{ request()->routeIs('stock-transactions.*') ? 'active' : '' }}">
+                <a href="{{ route('stock-transactions.index') }}"
+                   class="collapse-item {{ request()->routeIs('stock-transactions.*') ? 'active' : '' }}">
                     <i class="bi bi-arrow-left-right me-1"></i> Stock Transactions
                 </a>
             </div>
@@ -496,14 +487,16 @@
         <li><div class="sidebar-section-title">Sales</div></li>
 
         <li class="nav-item">
-            <a href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
-            <i class="bi bi-receipt"></i>
+            <a href="{{ route('invoices.index') }}"
+               class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+                <i class="bi bi-receipt"></i>
                 Invoices
             </a>
         </li>
 
         <li class="nav-item">
-            <a href="{{ route('payments.index') }}" class="nav-link {{ request()->routeIs('payments.*') ? 'active' : '' }}">
+            <a href="{{ route('payments.index') }}"
+               class="nav-link {{ request()->routeIs('payments.*') ? 'active' : '' }}">
                 <i class="bi bi-credit-card"></i>
                 Payments
             </a>
@@ -512,37 +505,45 @@
         {{-- REPORTS --}}
         <li><div class="sidebar-section-title">Reports</div></li>
 
-       <a href="#reportMenu" class="nav-link"
-        data-bs-toggle="collapse"
-        aria-expanded="{{ request()->routeIs('reports.*') ? 'true' : 'false' }}">
-            <i class="bi bi-bar-chart-line"></i>
-            Reports
-            <i class="bi bi-chevron-right arrow"></i>
-        </a>
-        <div class="collapse {{ request()->routeIs('reports.*') ? 'show' : '' }}"     id="reportMenu">
-            <a href="{{ route('reports.sales') }}"     class="collapse-item {{ request()->routeIs('reports.sales')     ? 'active' : '' }}">
-                <i class="bi bi-receipt me-1"></i> Sales
+        <li class="nav-item">
+            <a href="#reportMenu" class="nav-link"
+               data-bs-toggle="collapse"
+               aria-expanded="{{ request()->routeIs('reports.*') ? 'true' : 'false' }}">
+                <i class="bi bi-bar-chart-line"></i>
+                Reports
+                <i class="bi bi-chevron-right arrow"></i>
             </a>
-            <a href="{{ route('reports.customers') }}" class="collapse-item {{ request()->routeIs('reports.customers') ? 'active' : '' }}">
-                <i class="bi bi-people me-1"></i> Customers
-            </a>
-            <a href="{{ route('reports.inventory') }}" class="collapse-item {{ request()->routeIs('reports.inventory') ? 'active' : '' }}">
-                <i class="bi bi-box me-1"></i> Inventory
-            </a>
-            <a href="{{ route('reports.payments') }}"  class="collapse-item {{ request()->routeIs('reports.payments')  ? 'active' : '' }}">
-                <i class="bi bi-credit-card me-1"></i> Payments
-            </a>
-            <a href="{{ route('reports.leads') }}"     class="collapse-item {{ request()->routeIs('reports.leads')     ? 'active' : '' }}">
-                <i class="bi bi-funnel me-1"></i> Leads
-            </a>
-        </div>
+            <div class="collapse {{ request()->routeIs('reports.*') ? 'show' : '' }}"
+                 id="reportMenu">
+                <a href="{{ route('reports.sales') }}"
+                   class="collapse-item {{ request()->routeIs('reports.sales') ? 'active' : '' }}">
+                    <i class="bi bi-receipt me-1"></i> Sales
+                </a>
+                <a href="{{ route('reports.customers') }}"
+                   class="collapse-item {{ request()->routeIs('reports.customers') ? 'active' : '' }}">
+                    <i class="bi bi-people me-1"></i> Customers
+                </a>
+                <a href="{{ route('reports.inventory') }}"
+                   class="collapse-item {{ request()->routeIs('reports.inventory') ? 'active' : '' }}">
+                    <i class="bi bi-box me-1"></i> Inventory
+                </a>
+                <a href="{{ route('reports.payments') }}"
+                   class="collapse-item {{ request()->routeIs('reports.payments') ? 'active' : '' }}">
+                    <i class="bi bi-credit-card me-1"></i> Payments
+                </a>
+                <a href="{{ route('reports.leads') }}"
+                   class="collapse-item {{ request()->routeIs('reports.leads') ? 'active' : '' }}">
+                    <i class="bi bi-funnel me-1"></i> Leads
+                </a>
+            </div>
+        </li>
 
         {{-- ADMIN --}}
         @if(auth()->user()->hasAnyRole(['super-admin', 'admin']))
         <li><div class="sidebar-section-title">Admin</div></li>
         <li class="nav-item">
             <a href="{{ route('users.index') }}"
-              class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+               class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
                 <i class="bi bi-shield-lock"></i>
                 Users & Roles
             </a>
@@ -579,7 +580,8 @@
                     <div class="user-role">{{ auth()->user()->role->name ?? 'User' }}</div>
                 </div>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm" style="min-width:200px; border-radius:10px; border:1px solid #f0f2f5;">
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm"
+                style="min-width:200px; border-radius:10px; border:1px solid #f0f2f5;">
                 <li>
                     <div class="px-3 py-2 border-bottom">
                         <div style="font-size:0.85rem; font-weight:600;">{{ auth()->user()->name }}</div>
@@ -639,7 +641,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <script>
-    // Sidebar toggle for mobile
     function toggleSidebar() {
         document.getElementById('sidebar').classList.toggle('open');
         document.getElementById('sidebarOverlay').classList.toggle('open');
@@ -650,7 +651,6 @@
         document.getElementById('sidebarOverlay').classList.remove('open');
     }
 
-    // Auto-hide alerts after 4 seconds
     setTimeout(() => {
         document.querySelectorAll('.alert').forEach(el => {
             let alert = bootstrap.Alert.getOrCreateInstance(el);

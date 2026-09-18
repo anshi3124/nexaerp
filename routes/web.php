@@ -28,8 +28,7 @@ Route::middleware(['auth'])->group(function () {
     // CRM
     Route::resource('customers', CustomerController::class);
     Route::resource('leads', LeadController::class);
-    Route::resource('activities', ActivityController::class)->only(['store', 'destroy']);
-
+    Route::resource('activities', ActivityController::class)->only(['index', 'store', 'destroy']); 
     // Inventory
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('products', ProductController::class);
