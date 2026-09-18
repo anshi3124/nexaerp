@@ -541,7 +541,8 @@
         @if(auth()->user()->hasAnyRole(['super-admin', 'admin']))
         <li><div class="sidebar-section-title">Admin</div></li>
         <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+            <a href="{{ route('users.index') }}"
+              class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
                 <i class="bi bi-shield-lock"></i>
                 Users & Roles
             </a>

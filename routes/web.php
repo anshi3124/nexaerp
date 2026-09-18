@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockTransactionController;
 
 Auth::routes(['register' => false]);
@@ -38,6 +39,11 @@ Route::middleware(['auth'])->group(function () {
     // Invoices
     Route::resource('invoices', InvoiceController::class);
     Route::patch('/invoices/{invoice}/status', [InvoiceController::class, 'updateStatus'])->name('invoices.status');
+
+    // Users (Admin only)
+    Route::middleware(['role:super-admin,admin'])->group(function () {
+        Route::resource('users', UserController::class)->except(['show']);
+    });
 
     // Payments
     Route::resource('payments', PaymentController::class)->only(['index', 'store', 'destroy']);
