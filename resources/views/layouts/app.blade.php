@@ -480,13 +480,13 @@
             </a>
             <div class="collapse {{ request()->routeIs('products.*') || request()->routeIs('categories.*') ? 'show' : '' }}"
                  id="inventoryMenu">
-                <a href="#" class="collapse-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
+                <a href="{{ route('products.index') }}" class="collapse-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
                     <i class="bi bi-box me-1"></i> Products
                 </a>
-                <a href="#" class="collapse-item {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+                <a href="{{ route('categories.index') }}" class="collapse-item {{ request()->routeIs('categories.*') ? 'active' : '' }}">
                     <i class="bi bi-tags me-1"></i> Categories
                 </a>
-                <a href="#" class="collapse-item">
+                <a href="{{ route('stock-transactions.index') }}" class="collapse-item {{ request()->routeIs('stock-transactions.*') ? 'active' : '' }}">
                     <i class="bi bi-arrow-left-right me-1"></i> Stock Transactions
                 </a>
             </div>

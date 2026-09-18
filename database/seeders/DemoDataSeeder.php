@@ -312,5 +312,40 @@ class DemoDataSeeder extends Seeder
         $this->command->info('   → 14 Products (4 low stock)');
         $this->command->info('   → 7 Invoices');
         $this->command->info('   → Payments for paid invoices');
+
+                // ── 7. STOCK TRANSACTIONS (additional demo) ───────────────
+        $stockTxnData = [
+            ['product' => $createdProducts[0],  'type' => 'stock_in',   'qty' => 10, 'notes' => 'Received from supplier'],
+            ['product' => $createdProducts[1],  'type' => 'stock_in',   'qty' => 5,  'notes' => 'New stock arrival'],
+            ['product' => $createdProducts[2],  'type' => 'stock_out',  'qty' => 3,  'notes' => 'Sold to customer'],
+            ['product' => $createdProducts[3],  'type' => 'stock_in',   'qty' => 20, 'notes' => 'Bulk purchase'],
+            ['product' => $createdProducts[4],  'type' => 'stock_out',  'qty' => 5,  'notes' => 'Customer order'],
+            ['product' => $createdProducts[5],  'type' => 'stock_in',   'qty' => 50, 'notes' => 'Monthly restock'],
+            ['product' => $createdProducts[7],  'type' => 'stock_out',  'qty' => 3,  'notes' => 'Office use'],
+            ['product' => $createdProducts[10], 'type' => 'stock_in',   'qty' => 8,  'notes' => 'Supplier delivery'],
+            ['product' => $createdProducts[11], 'type' => 'adjustment', 'qty' => 2,  'notes' => 'Physical count adjustment'],
+            ['product' => $createdProducts[13], 'type' => 'stock_out',  'qty' => 1,  'notes' => 'Sold to Vikram Singh'],
+        ];
+
+        foreach ($stockTxnData as $txn) {
+            $before = $txn['product']->stock_quantity;
+            $after  = match($txn['type']) {
+                'stock_in'   => $before + $txn['qty'],
+                'stock_out'  => max(0, $before - $txn['qty']),
+                'adjustment' => $txn['qty'],
+            };
+
+            \App\Models\StockTransaction::create([
+                'product_id'      => $txn['product']->id,
+                'user_id'         => $adminUser->id,
+                'type'            => $txn['type'],
+                'quantity'        => $txn['qty'],
+                'quantity_before' => $before,
+                'quantity_after'  => $after,
+                'notes'           => $txn['notes'],
+            ]);
+        }
+
+        $this->command->info('   → 10 Stock Transactions');
     }
 }
