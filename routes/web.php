@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockTransactionController;
 
 Auth::routes(['register' => false]);
@@ -43,5 +44,15 @@ Route::middleware(['auth'])->group(function () {
 
     // AJAX
     Route::get('/api/products/{product}/price', [ProductController::class, 'getPrice'])->name('products.price');
+
+    // add these inside Route::middleware(['auth'])->group
+    // Reports
+    Route::prefix('reports')->name('reports.')->group(function () {
+    Route::get('/sales',     [ReportController::class, 'sales'])->name('sales');
+    Route::get('/customers', [ReportController::class, 'customers'])->name('customers');
+    Route::get('/inventory', [ReportController::class, 'inventory'])->name('inventory');
+    Route::get('/payments',  [ReportController::class, 'payments'])->name('payments');
+    Route::get('/leads',     [ReportController::class, 'leads'])->name('leads');
+});
 
 });

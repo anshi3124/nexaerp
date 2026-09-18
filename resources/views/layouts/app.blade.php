@@ -512,12 +512,30 @@
         {{-- REPORTS --}}
         <li><div class="sidebar-section-title">Reports</div></li>
 
-        <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
-                <i class="bi bi-bar-chart-line"></i>
-                Reports
+       <a href="#reportMenu" class="nav-link"
+        data-bs-toggle="collapse"
+        aria-expanded="{{ request()->routeIs('reports.*') ? 'true' : 'false' }}">
+            <i class="bi bi-bar-chart-line"></i>
+            Reports
+            <i class="bi bi-chevron-right arrow"></i>
+        </a>
+        <div class="collapse {{ request()->routeIs('reports.*') ? 'show' : '' }}"     id="reportMenu">
+            <a href="{{ route('reports.sales') }}"     class="collapse-item {{ request()->routeIs('reports.sales')     ? 'active' : '' }}">
+                <i class="bi bi-receipt me-1"></i> Sales
             </a>
-        </li>
+            <a href="{{ route('reports.customers') }}" class="collapse-item {{ request()->routeIs('reports.customers') ? 'active' : '' }}">
+                <i class="bi bi-people me-1"></i> Customers
+            </a>
+            <a href="{{ route('reports.inventory') }}" class="collapse-item {{ request()->routeIs('reports.inventory') ? 'active' : '' }}">
+                <i class="bi bi-box me-1"></i> Inventory
+            </a>
+            <a href="{{ route('reports.payments') }}"  class="collapse-item {{ request()->routeIs('reports.payments')  ? 'active' : '' }}">
+                <i class="bi bi-credit-card me-1"></i> Payments
+            </a>
+            <a href="{{ route('reports.leads') }}"     class="collapse-item {{ request()->routeIs('reports.leads')     ? 'active' : '' }}">
+                <i class="bi bi-funnel me-1"></i> Leads
+            </a>
+        </div>
 
         {{-- ADMIN --}}
         @if(auth()->user()->hasAnyRole(['super-admin', 'admin']))
