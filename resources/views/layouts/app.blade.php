@@ -496,14 +496,14 @@
         <li><div class="sidebar-section-title">Sales</div></li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
-                <i class="bi bi-receipt"></i>
+            <a href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+            <i class="bi bi-receipt"></i>
                 Invoices
             </a>
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('payments.*') ? 'active' : '' }}">
+            <a href="{{ route('payments.index') }}" class="nav-link {{ request()->routeIs('payments.*') ? 'active' : '' }}">
                 <i class="bi bi-credit-card"></i>
                 Payments
             </a>

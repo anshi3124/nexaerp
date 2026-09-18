@@ -96,4 +96,16 @@ class ProductController extends Controller
         return redirect()->route('products.index')
                          ->with('success', 'Product deleted successfully!');
     }
+
+        /**
+     * AJAX: Get product price and stock
+     */
+    public function getPrice(Product $product)
+    {
+        return response()->json([
+            'price'          => $product->selling_price,
+            'stock'          => $product->stock_quantity,
+            'name'           => $product->name,
+        ]);
+    }
 }

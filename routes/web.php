@@ -8,6 +8,8 @@ use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StockTransactionController;
 
 Auth::routes(['register' => false]);
@@ -31,5 +33,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('products', ProductController::class);
     Route::get('/stock-transactions', [StockTransactionController::class, 'index'])->name('stock-transactions.index');
     Route::post('/stock-transactions', [StockTransactionController::class, 'store'])->name('stock-transactions.store');
+
+    // Invoices
+    Route::resource('invoices', InvoiceController::class);
+    Route::patch('/invoices/{invoice}/status', [InvoiceController::class, 'updateStatus'])->name('invoices.status');
+
+    // Payments
+    Route::resource('payments', PaymentController::class)->only(['index', 'store', 'destroy']);
+
+    // AJAX
+    Route::get('/api/products/{product}/price', [ProductController::class, 'getPrice'])->name('products.price');
 
 });
