@@ -455,10 +455,10 @@
             </a>
             <div class="collapse {{ request()->routeIs('customers.*') || request()->routeIs('leads.*') ? 'show' : '' }}"
                  id="crmMenu">
-                <a href="#" class="collapse-item {{ request()->routeIs('customers.*') ? 'active' : '' }}">
+                <a href="{{ route('customers.index') }}" class="collapse-item {{ request()->routeIs('customers.*') ? 'active' : '' }}">
                     <i class="bi bi-person-lines-fill me-1"></i> Customers
                 </a>
-                <a href="#" class="collapse-item {{ request()->routeIs('leads.*') ? 'active' : '' }}">
+                <a href="{{ route('leads.index') }}" class="collapse-item {{ request()->routeIs('leads.*') ? 'active' : '' }}">
                     <i class="bi bi-funnel me-1"></i> Leads
                 </a>
                 <a href="#" class="collapse-item {{ request()->routeIs('activities.*') ? 'active' : '' }}">
